@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102a43">
+<title>LifeGuard AI — Human Safety</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#102a43;background:#f3f7fb}
+*{box-sizing:border-box}body{margin:0}header{background:#102a43;color:white;padding:26px 18px}
+.wrap{max-width:820px;margin:auto;padding:18px}h1{margin:0;font-size:2rem}header p{margin:6px 0 0;color:#d9e8f5}
+.card{background:white;border:1px solid #dce6ef;border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 4px 18px #102a430b}
+.status{font-weight:800;font-size:1.3rem;color:#16834a}.muted{color:#52677b}
+button,a.btn{border:0;border-radius:12px;padding:13px 16px;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.sos{background:#c62828;color:white;width:100%;font-size:1.2rem;padding:18px}
+.secondary{background:#e9f0f6;color:#102a43}.call{background:#16834a;color:white}
+input{width:100%;padding:12px;border:1px solid #b8c8d6;border-radius:10px;font-size:1rem;margin:7px 0 12px}
+li{margin:9px 0;line-height:1.45}.creator{font-size:.9rem;color:#52677b}
+.notice{background:#fff5df;border-left:4px solid #d58a00;padding:12px;border-radius:8px}
+footer{text-align:center;padding:20px;color:#52677b}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>🛡️ LifeGuard AI</h1>
+  <p>Human Safety & Emergency Assistance</p>
+</div></header>
+<main class="wrap">
+  <section class="card">
+    <div class="status" id="status">● SYSTEM READY</div>
+    <p class="muted">This is a safety-information prototype. It does not continuously monitor people or automatically contact emergency services.</p>
+    <button class="sos" id="sos">🚨 EMERGENCY — CALL 112</button>
+    <p class="muted" id="sosNote" aria-live="polite">Press only for a real emergency. Your phone will ask you to place the call.</p>
+    <a class="btn secondary" href="tel:112">Call India emergency number: 112</a>
+  </section>
+
+  <section class="card">
+    <h2>Emergency contact reminder</h2>
+    <label for="contact">Trusted person's phone number</label>
+    <input id="contact" type="tel" placeholder="Enter number on this device">
+    <button class="secondary" id="save">Save on this device</button>
+    <button class="secondary" id="message">Prepare SMS alert</button>
+    <p class="muted" id="contactNote" aria-live="polite">Your contact is stored only in this browser on this device.</p>
+  </section>
+
+  <section class="card">
+    <h2>If someone is unconscious</h2>
+    <ol>
+      <li>Check whether the place is safe before approaching.</li>
+      <li>Try to get a response and check whether they are breathing normally.</li>
+      <li>Call 112 and follow the emergency operator's instructions.</li>
+      <li>If they are breathing normally, place them in the recovery position if you can do so safely.</li>
+      <li>If they are not breathing normally, begin CPR only if trained or follow the operator's instructions.</li>
+      <li>Do not give them food, drink, or medicine.</li>
+    </ol>
+    <div class="notice"><strong>Important:</strong> Unconsciousness is a medical emergency. Get professional help immediately. This page is not a substitute for medical care.</div>
+  </section>
+
+  <section class="card">
+    <h2>Safety checklist</h2>
+    <ul>
+      <li>Keep emergency numbers accessible.</li>
+      <li>Share your trip plan with someone you trust.</li>
+      <li>Keep your phone charged where possible.</li>
+      <li>Never use this app to test, prank, restrain, drug, or incapacitate anyone.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>About this project</h2>
+    <p><strong>Project:</strong> LifeGuard AI</p>
+    <p class="creator"><strong>Creators:</strong> Vitthal Garje &amp; ChatGPT (OpenAI)</p>
+    <p class="creator">Version 1.0 · Demonstration prototype</p>
+  </section>
+</main>
+<footer>LifeGuard AI · Stay safe. Get help early.</footer>
+<script>
+const statusEl=document.getElementById('status');
+document.getElementById('sos').addEventListener('click',()=>{
+  statusEl.textContent='● EMERGENCY CALL REQUESTED';
+  statusEl.style.color='#b42318';
+  document.getElementById('sosNote').textContent='Your phone may open its dialer. Confirm the call on your device.';
+  window.location.href='tel:112';
+});
+const contact=document.getElementById('contact');
+try { contact.value=localStorage.getItem('lgai_contact')||''; } catch(e) {}
+document.getElementById('save').addEventListener('click',()=>{
+  const n=contact.value.trim();
+  if(!n){document.getElementById('contactNote').textContent='Enter a trusted contact number first.';return;}
+  try{localStorage.setItem('lgai_contact',n);document.getElementById('contactNote').textContent='Saved on this device.';}
+  catch(e){document.getElementById('contactNote').textContent='This browser could not save the number.';}
+});
+document.getElementById('message').addEventListener('click',()=>{
+  const n=contact.value.trim();
+  if(!n){document.getElementById('contactNote').textContent='Enter a trusted contact number first.';return;}
+  const body=encodeURIComponent('I may need help. Please contact me as soon as possible.');
+  window.location.href='sms:'+encodeURIComponent(n)+'?body='+body;
+});
+</script>
+</body>
+</html>
