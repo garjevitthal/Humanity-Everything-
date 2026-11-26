@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10243a">
+<title>LifeGuard AI | One World, One Humanity</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1726;--panel:#14263b;--line:#29415d;--text:#f4f7fb;--muted:#b8c7d8;--accent:#55d6be;--danger:#ff6b6b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#10243a,#091321 70%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{width:min(920px,100%);margin:auto;padding:24px 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:1.35rem;letter-spacing:.02em}.tag{color:var(--muted);font-size:.9rem}
+button,a.btn{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 16px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.lang{background:#233b55;color:white;border:1px solid var(--line)}
+.hero{padding:34px 0 22px}.hero h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.08;margin:8px 0 12px}.hero p{color:var(--muted);max-width:650px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px}
+.card{background:rgba(20,38,59,.94);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h2{font-size:1.15rem;margin:0 0 10px}.card p,.muted{color:var(--muted)}
+.sos{background:var(--danger);color:#1b1010;width:100%;font-size:1.2rem;min-height:58px}
+.primary{background:var(--accent);color:#09221e;width:100%}
+input{width:100%;padding:13px;border-radius:10px;border:1px solid var(--line);background:#0c1b2c;color:white;font:inherit;margin:8px 0 12px}
+label{font-weight:650} .note{font-size:.9rem;color:var(--muted)}
+ul{padding-left:22px;color:var(--muted)}li{margin:7px 0}
+footer{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.88rem}
+:focus-visible{outline:3px solid #ffd166;outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){button{transition:transform .12s ease}button:active{transform:scale(.98)}}
+</style>
+</head>
+<body>
+<main>
+<header><div><div class="brand">🛟 LifeGuard AI</div><div class="tag">ONE WORLD · ONE HUMANITY</div></div><button class="lang" id="language" type="button" aria-label="Switch language">English</button></header>
+<section class="hero"><p id="eyebrow">सुरक्षा और सहायता</p><h1 id="headline">मुसीबत में सही मदद तक पहुँचें।</h1><p id="intro">यह एक शुरुआती सहायता प्रोटोटाइप है। आपात स्थिति में स्थानीय आपात सेवा से सीधे संपर्क करें।</p></section>
+<section class="grid" aria-label="Emergency tools">
+<article class="card"><h2 id="emergencyTitle">आपातकालीन सहायता</h2><p id="emergencyText">भारत में आपातकालीन सहायता के लिए 112 उपलब्ध है। कॉल करने से पहले अपनी स्थिति और स्थान बताने के लिए तैयार रहें।</p><a class="btn sos" href="tel:112" id="call112">112 पर कॉल करें</a><p class="note" id="callNote">कॉल आपके फोन के डायलर में खुलेगी। कॉल करना आपकी पुष्टि के बाद ही होगा।</p></article>
+<article class="card"><h2 id="contactTitle">विश्वसनीय संपर्क</h2><p id="contactText">किसी भरोसेमंद व्यक्ति का नंबर डालकर संदेश का ड्राफ्ट तैयार करें।</p><label for="phone" id="phoneLabel">फोन नंबर</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="उदाहरण: 98XXXXXXXX"><button class="primary" id="smsButton" type="button">SMS ड्राफ्ट तैयार करें</button><p class="note" id="privacy">नंबर इस पेज पर सेव नहीं होता। संदेश भेजने से पहले अपने मैसेज ऐप में जाँचें।</p></article>
+<article class="card"><h2 id="stepsTitle">अभी क्या करें</h2><ul id="steps"><li>जहाँ संभव हो, सुरक्षित जगह पर रहें।</li><li>भारत में आपातकालीन सहायता के लिए 112 पर कॉल करें।</li><li>अपना स्थान और समस्या साफ़-साफ़ बताएँ।</li><li>किसी भरोसेमंद वयस्क या व्यक्ति को सूचित करें।</li></ul></article>
+<article class="card"><h2 id="limitsTitle">महत्वपूर्ण जानकारी</h2><p id="limitsText">यह वेबसाइट AI द्वारा निगरानी, स्वतः लोकेशन ट्रैकिंग, स्वतः SMS, मेडिकल निदान या आपातकालीन सेवा की गारंटी नहीं देती। यह आधिकारिक आपात सेवा का विकल्प नहीं है।</p></article>
+</section>
+<footer id="footer">प्रोटोटाइप संस्करण · व्यक्तिगत जानकारी दर्ज करने से पहले सावधानी रखें · वास्तविक उपयोग से पहले सुरक्षा और विशेषज्ञ समीक्षा आवश्यक है।</footer>
+</main>
+<script>
+const copy={
+hi:{eyebrow:"सुरक्षा और सहायता",headline:"मुसीबत में सही मदद तक पहुँचें।",intro:"यह एक शुरुआती सहायता प्रोटोटाइप है। आपात स्थिति में स्थानीय आपात सेवा से सीधे संपर्क करें.",emergencyTitle:"आपातकालीन सहायता",emergencyText:"भारत में आपातकालीन सहायता के लिए 112 उपलब्ध है। कॉल करने से पहले अपनी स्थिति और स्थान बताने के लिए तैयार रहें।",call:"112 पर कॉल करें",callNote:"कॉल आपके फोन के डायलर में खुलेगी। कॉल करना आपकी पुष्टि के बाद ही होगा।",contactTitle:"विश्वसनीय संपर्क",contactText:"किसी भरोसेमंद व्यक्ति का नंबर डालकर संदेश का ड्राफ्ट तैयार करें।",phoneLabel:"फोन नंबर",placeholder:"उदाहरण: 98XXXXXXXX",sms:"SMS ड्राफ्ट तैयार करें",privacy:"नंबर इस पेज पर सेव नहीं होता। संदेश भेजने से पहले अपने मैसेज ऐप में जाँचें।",stepsTitle:"अभी क्या करें",steps:["जहाँ संभव हो, सुरक्षित जगह पर रहें।","भारत में आपातकालीन सहायता के लिए 112 पर कॉल करें।","अपना स्थान और समस्या साफ़-साफ़ बताएँ।","किसी भरोसेमंद वयस्क या व्यक्ति को सूचित करें।"],limitsTitle:"महत्वपूर्ण जानकारी",limitsText:"यह वेबसाइट AI द्वारा निगरानी, स्वतः लोकेशन ट्रैकिंग, स्वतः SMS, मेडिकल निदान या आपातकालीन सेवा की गारंटी नहीं देती। यह आधिकारिक आपात सेवा का विकल्प नहीं है।",footer:"प्रोटोटाइप संस्करण · व्यक्तिगत जानकारी दर्ज करने से पहले सावधानी रखें · वास्तविक उपयोग से पहले सुरक्षा और विशेषज्ञ समीक्षा आवश्यक है।",bad:"कृपया सही फोन नंबर दर्ज करें।",msg:"मुझे मदद की ज़रूरत है। कृपया मुझसे संपर्क करें। मेरी स्थिति: [अपना स्थान लिखें]"},
+en:{eyebrow:"SAFETY & SUPPORT",headline:"Reach the right help when it matters.",intro:"This is an early support prototype. In an emergency, contact local emergency services directly.",emergencyTitle:"Emergency help",emergencyText:"In India, 112 is available for emergency assistance. Be ready to explain what happened and where you are.",call:"Call 112",callNote:"This opens your phone dialer. The call happens only if you confirm it.",contactTitle:"Trusted contact",contactText:"Enter a trusted person's number to prepare a message draft.",phoneLabel:"Phone number",placeholder:"Example: +91 98XXXXXXXX",sms:"Prepare SMS draft",privacy:"Your number is not saved by this page. Review the message in your messaging app before sending.",stepsTitle:"What to do now",steps:["Move to a safer place if you can.","Call 112 in India for emergency assistance.","Clearly explain your location and the problem.","Inform a trusted adult or person."],limitsTitle:"Important information",limitsText:"This website does not provide AI monitoring, automatic location tracking, automatic SMS, medical diagnosis, or guaranteed emergency response. It is not a replacement for official emergency services.",footer:"Prototype version · Be careful before entering personal information · Security and expert review are required before real-world use.",bad:"Please enter a valid phone number.",msg:"I need help. Please contact me. My location: [write your location]"}
+};
+let lang="hi";const $=id=>document.getElementById(id);
+function render(){const d=copy[lang];for(const id of ["eyebrow","headline","intro","emergencyTitle","emergencyText","callNote","contactTitle","contactText","phoneLabel","privacy","stepsTitle","limitsTitle","limitsText","footer"])$(id).textContent=d[id];$("call112").textContent=d.call;$("smsButton").textContent=d.sms;$("phone").placeholder=d.placeholder;$("steps").replaceChildren(...d.steps.map(t=>{const li=document.createElement("li");li.textContent=t;return li}));$("language").textContent=lang==="hi"?"English":"हिन्दी";document.documentElement.lang=lang}
+$("language").addEventListener("click",()=>{lang=lang==="hi"?"en":"hi";render()});
+$("smsButton").addEventListener("click",()=>{const number=$("phone").value.trim();const digits=number.replace(/[+\s()-]/g,"");if(!/^\d{8,15}$/.test(digits)){alert(copy[lang].bad);$("phone").focus();return}const body=encodeURIComponent(copy[lang].msg);window.location.href="sms:"+encodeURIComponent(number)+"?body="+body});
+render();
+</script>
+</body>
+</html>
