@@ -38,6 +38,11 @@ jobs:
         run: |
           unzip -q LifeGuardAI-Android-Starter.zip -d android-src
 
+      - name: Fix Android Source
+        run: |
+          FILE="android-src/app/src/main/java/org/oneworldhumanity/lifeguardai/MainActivity.kt"
+          sed -i 's/MODE_PRIVATE/android.content.Context.MODE_PRIVATE/g' "$FILE"
+
       - name: Configure Java and Kotlin JVM 17
         run: |
           cat > /tmp/jvm-target.gradle <<'EOF'
