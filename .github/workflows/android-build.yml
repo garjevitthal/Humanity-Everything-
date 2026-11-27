@@ -38,9 +38,21 @@ jobs:
         run: |
           unzip -q LifeGuardAI-Android-Starter.zip -d android-src
 
+      - name: Align Java and Kotlin JVM targets
+        working-directory: android-src
+        run: |
+          cat > /tmp/jvm-target.gradle <<'EOF'
+          allprojects {
+            tasks.withType(org.gradle.api.tasks.compile.JavaCompile).configureEach {
+              sourceCompatibility = '17'
+              targetCompatibility = '17'
+            }
+          }
+          EOF
+
       - name: Build Android APK
         working-directory: android-src
-        run: gradle --no-daemon assembleDebug
+        run: gradle --init-script /tmp/jvm-target.gradle --no-daemon assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
