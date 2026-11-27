@@ -38,14 +38,30 @@ jobs:
         run: |
           unzip -q LifeGuardAI-Android-Starter.zip -d android-src
 
-      - name: Align Java and Kotlin JVM targets
-        working-directory: android-src
+      - name: Configure Java and Kotlin JVM 17
         run: |
           cat > /tmp/jvm-target.gradle <<'EOF'
+          import org.gradle.api.tasks.compile.JavaCompile
+          import org.gradle.api.JavaVersion
+
           allprojects {
-            tasks.withType(org.gradle.api.tasks.compile.JavaCompile).configureEach {
-              sourceCompatibility = '17'
-              targetCompatibility = '17'
+            afterEvaluate {
+              def androidExtension = extensions.findByName("android")
+              if (androidExtension != null) {
+                androidExtension.compileOptions.sourceCompatibility = JavaVersion.VERSION_17
+                androidExtension.compileOptions.targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              tasks.withType(JavaCompile).configureEach {
+                sourceCompatibility = '17'
+                targetCompatibility = '17'
+              }
+
+              tasks.configureEach { task ->
+                if (task.name.endsWith("Kotlin") && task.hasProperty("kotlinOptions")) {
+                  task.kotlinOptions.jvmTarget = "17"
+                }
+              }
             }
           }
           EOF
