@@ -1,4 +1,3 @@
-
 name: LifeGuard AI Android Build
 
 on:
@@ -24,19 +23,96 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK
+      - name: Setup Android SDK 36
         uses: android-actions/setup-android@v4
         with:
-          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.9'
+          gradle-version: '8.11.1'
 
       - name: Extract Android Project
         run: |
           unzip -q LifeGuardAI-Android-Starter.zip -d android-src
+
+      - name: Update Android Gradle Plugin and SDK levels
+        working-directory: android-src
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          candidates = [
+              Path("build.gradle.kts"),
+              Path("settings.gradle.kts"),
+              Path("build.gradle"),
+              Path("settings.gradle"),
+          ]
+
+          found_agp = False
+          for path in candidates:
+              if not path.exists():
+                  continue
+              text = path.read_text()
+              updated, count = re.subn(
+                  r'(com\.android\.application["\']?\s*\)?\s*version\s*["\'])([0-9][0-9A-Za-z.+-]*)(["\'])',
+                  r'\g<1>8.9.1\g<3>',
+                  text
+              )
+              if count:
+                  path.write_text(updated)
+                  found_agp = True
+                  print(f"Updated Android Gradle Plugin declaration in {path}")
+
+          if not found_agp:
+              print("No direct Android Gradle Plugin version declaration found.")
+              print("The project may use a version catalog; inspect gradle/libs.versions.toml.")
+              raise SystemExit(1)
+
+          app = Path("app/build.gradle.kts")
+          if not app.exists():
+              raise SystemExit("app/build.gradle.kts not found")
+
+          text = app.read_text()
+          text, compile_count = re.subn(
+              r'(\bcompileSdk\s*=\s*)\d+',
+              r'\g<1>36',
+              text,
+              count=1
+          )
+          if not compile_count:
+              text, compile_count = re.subn(
+                  r'(\bcompileSdk\s+)\d+',
+                  r'\g<1>36',
+                  text,
+                  count=1
+              )
+
+          text, target_count = re.subn(
+              r'(\btargetSdk\s*=\s*)\d+',
+              r'\g<1>36',
+              text,
+              count=1
+          )
+          if not target_count:
+              text, target_count = re.subn(
+                  r'(\btargetSdk\s+)\d+',
+                  r'\g<1>36',
+                  text,
+                  count=1
+              )
+
+          if not compile_count or not target_count:
+              raise SystemExit(
+                  "Could not safely locate compileSdk and targetSdk. "
+                  "No SDK-level changes were written."
+              )
+
+          app.write_text(text)
+          print("Configured compileSdk=36 and targetSdk=36")
+          PY
 
       - name: Fix Android Source
         run: |
@@ -78,13 +154,13 @@ jobs:
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: LifeGuardAI-APK
+          name: LifeGuardAI-APK-API36
           path: android-src/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
 
       - name: Upload Unsigned Release AAB
         uses: actions/upload-artifact@v4
         with:
-          name: LifeGuardAI-Unsigned-AAB
+          name: LifeGuardAI-Unsigned-AAB-API36
           path: android-src/app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
