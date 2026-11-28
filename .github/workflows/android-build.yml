@@ -1,3 +1,4 @@
+
 name: LifeGuard AI Android Build
 
 on:
@@ -36,6 +37,12 @@ jobs:
       - name: Extract Android Project
         run: |
           unzip -q LifeGuardAI-Android-Starter.zip -d android-src
+
+      - name: Bundle LifeGuard AI V2 into Android assets
+        run: |
+          mkdir -p android-src/app/src/main/assets
+          cp lifeguard-ai-v2.html android-src/app/src/main/assets/index.html
+          test -s android-src/app/src/main/assets/index.html
 
       - name: Update Android Gradle Plugin and SDK levels
         working-directory: android-src
@@ -164,3 +171,4 @@ jobs:
           name: LifeGuardAI-Unsigned-AAB-API36
           path: android-src/app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
+
